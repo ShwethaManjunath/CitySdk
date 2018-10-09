@@ -1,0 +1,64 @@
+<div class="col-lg-12">
+	<h1>Parking Garages</h1>
+	<hr>
+</div>
+<div class="container1">
+
+	<div class="row">
+		<div *ngFor="let item of parkingData.features" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+			<div class="thumbnail" *ngIf="item.properties.layers['parking.garage'].data.Name">
+				<div class="caption">
+					<div class='col-lg-12'>
+						<span class="glyphicon glyphicon-credit-card"></span>
+						<span class="glyphicon glyphicon-trash pull-right text-primary"></span>
+					</div>
+					<div class='col-lg-12 well well-add-card'>
+						<h4> {{item.properties.layers['parking.garage'].data.Name}}</h4>
+					</div>
+					<div class='col-lg-12 detail'>
+							<p><span>Short Capacity &nbsp;&nbsp;:</span> {{item.properties.layers['parking.garage'].data.ShortCapacity}}</p>		
+						<p><span>Free Space &nbsp;:</span> {{item.properties.layers['parking.garage'].data.FreeSpaceShort}}</p>	
+						<br>
+
+						<p><span>Long Capacity &nbsp;&nbsp;:</span>  {{item.properties.layers['parking.garage'].data.LongCapacity}}</p>
+						<p><span>Free Space &nbsp;&nbsp;:</span> {{item.properties.layers['parking.garage'].data.FreeSpaceLong}}</p>
+						
+						
+					</div>
+					<button type="button" class="btn btn-lg btn-info " data-toggle="modal" data-target="#myModal" data-lat=item.geometry.coordinates[1] data-lng='item.geometry.coordinates[0]'>
+						<span class="modalbtn">View Map</span>
+					</button>
+
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="myModalLabel">{{item.properties.layers['parking.garage'].data.Name}}</h4>
+									<button type="button" class="btn btn-danger btn-md" data-dismiss="modal" aria-label="Close">Close</button>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-md-12 modal_body_content">
+
+											<agm-map [latitude]="item.geometry.coordinates[1]" [longitude]="item.geometry.coordinates[0]">
+												<agm-marker [latitude]="item.geometry.coordinates[1]" [longitude]="item.geometry.coordinates[0]"></agm-marker>
+											</agm-map>
+
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12 modal_body_map">
+											<div class="location-map" id="location-map">
+												<div style="width: 600px; height: 400px;" id="map_canvas"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
